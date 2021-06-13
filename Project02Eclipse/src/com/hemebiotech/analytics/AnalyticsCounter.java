@@ -1,7 +1,5 @@
 package com.hemebiotech.analytics;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -74,31 +72,24 @@ public class AnalyticsCounter {
 	 * </p>
 	 * 
 	 * @see AnalyticsCounter#symptomsList
-	 * @see AnalyticsCounter#symptomsMap
+	 * @see SymptomsMap#symptomsMap
 	 */
 	public void counting() {
-		for (String symptom : symptomsList) {
-			if (symptomsMap.containsKey(symptom)) {
-				symptomsMap.put(symptom, symptomsMap.get(symptom) + 1);
-			} else {
-				symptomsMap.put(symptom, 1);
-			}
-		}
+		symptomsMap = SymptomsMap.symptomsMapCreate(symptomsList);
 	}
 
 	/**
 	 * saves the name of each symptom and the result of the symptom's count in a
 	 * file
 	 * 
-	 * @throws IOException if error in file name
+	 * @throws Exception if error in file name
+	 * 
+	 * @see SymptomsCountWriter#fileWriter(Map)
 	 * 
 	 */
-	public void saving() throws IOException {
-		FileWriter writer = new FileWriter("results.out");
-		for (String symptom : symptomsMap.keySet()) {
-			writer.write(symptom + " : " + symptomsMap.get(symptom) + "\n");
-		}
-		writer.close();
+	public void saving() throws Exception {
+		SymptomsCountWriter symptomCountWrite = new SymptomsCountWriter();
+		symptomCountWrite.fileWriter(symptomsMap);
 	}
 
 }
