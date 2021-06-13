@@ -14,11 +14,11 @@ public class Main {
 	 * @see AnalyticsCounter#saving()
 	 */
 	public static void main(String[] args) throws Exception {
-
 		String fileSymptoms = "Project02Eclipse/symptoms.txt";
 		AnalyticsCounter analyticsCounter = new AnalyticsCounter(fileSymptoms);
 		analyticsCounter.reading();
+		analyticsCounter.counting();
 		analyticsCounter.saving();
 	}
 
-} 
+}
